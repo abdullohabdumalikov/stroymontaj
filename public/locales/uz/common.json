@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "home": "ASOSIY",
+    "about": "KOMPANIYA HAQIDA",
+    "projects": "LOYIHALAR",
+    "services": "XIZMATLAR",
+    "reviews": "SHARHLAR",
+    "contact": "ALOQA"
+  },
+  "hero": {
+    "subtitle": "Строй Монтаж",
+    "title": "СТРОЙ МОНТАЖ",
+    "accent": "KELAJAKNI QURAMIZ",
+    "description": "Har qanday murakkablikdagi obyektlarni loyihalash va qurish. Sanoat qudrati, muhandislik aniqligi va ilg‘or texnologiyalar uyg‘unligi.",
+    "cta1": "ARIZA QOLDIRISH",
+    "cta2": "BIZNING LOYIHALAR"
+  },
+  "about": {
+    "title": "KOMPANIYA",
+    "titleAccent": "HAQIDA",
+    "text1": "Biz — yuqori darajadagi arxitektura va muhandislik yechimlarini yaratish maqsadida birlashgan mutaxassislar jamoasimiz. Yondashuvimiz sifat standartlariga qat'iy rioya qilish, innovatsion texnologiyalar va ishning barcha bosqichlarida shaffoflikka asoslanadi.",
+    "text2": "Loyihalashdan tortib foydalanishga topshirishgacha bo‘lgan barcha jarayonlarni nazorat qilamiz va qurilgan obyektlarning mustahkamligi hamda ishonchliligini kafolatlaymiz.",
+    "stats": {
+      "experience": "YILLIK TAJRIBA",
+      "projects": "LOYIHALAR",
+      "clients": "MIJOZLAR",
+      "specialists": "MUTAXASSISLAR"
+    }
+  },
+  "projects": {
+    "title": "BIZNING",
+    "titleAccent": "LOYIHALAR",
+    "subtitle": "Har bir detalga alohida e'tibor bilan yaratilgan premium obyektlar."
+  },
+  "services": {
+    "title": "BIZNING",
+    "titleAccent": "XIZMATLAR",
+    "subtitle": "Qurilishda kompleks yondashuv: g‘oyadan tortib obyektni foydalanishga topshirishgacha.",
+    "service1": "Uylar qurilishi",
+    "service1Desc": "Yashash va tijorat binolarini yuqori sifat hamda xavfsizlik standartlariga muvofiq qurish.",
+    "service2": "Konstruksiyalar montaji",
+    "service2Desc": "Har qanday murakkablikdagi metall va temir-beton konstruksiyalarni professional o‘rnatish.",
+    "service3": "Arxitektura ishlari",
+    "service3Desc": "Kelajakdagi obyektlar uchun arxitektura konsepsiyalari va batafsil loyihalarni ishlab chiqish."
+  },
+  "reviews": {
+    "title": "MIJOZLAR",
+    "titleAccent": "FIKRLARI",
+    "text": "Sharhlar bo‘limi tayyor. Keyinchalik haqiqiy mijozlar fikrlarini yuborsangiz, bu yerga chiroyli slider yoki kartochkalar ko‘rinishida joylashtirib beraman."
+  },
+  "contact": {
+    "title": "BIZ BILAN",
+    "titleAccent": "BOG‘LANING",
+    "namePlaceholder": "ISMNI KIRITING",
+    "lastnamePlaceholder": "FAMILIYANI KIRITING",
+    "phonePlaceholder": "TELEFON RAQAM",
+    "messagePlaceholder": "XABARINGIZ",
+    "submitBtn": "ARIZA QOLDIRISH",
+    "phone": "BIZNING RAQAM",
+    "email": "BIZNING E-POCHTA",
+    "youtube": "BIZNING YOUTUBE",
+    "telegram": "BIZNING TELEGRAM"
+  },
+  "footer": {
+    "description": "Kelajakni loyihalaymiz va quramiz. Har bir loyihada ishonchlilik, innovatsiyalar va mukammal sifat.",
+    "privacy": "Maxfiylik siyosati",
+    "terms": "Foydalanish shartlari",
+    "jobs": "Bo‘sh ish o‘rinlari",
+    "copyright": "© 2024 СТРОЙ МОНТАЖ."
+  }
+}
