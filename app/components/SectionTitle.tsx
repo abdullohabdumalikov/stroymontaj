@@ -15,14 +15,19 @@ export function SectionTitle({
         hidden: {},
         visible: {
             transition: {
-                staggerChildren: 0.05,
+                staggerChildren: 0.03,
             },
         },
     };
 
     const charVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+        hidden: { opacity: 0, y: 30, rotateX: -50 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            transition: { duration: 0.5, ease: [0.33, 1, 0.68, 1] as [number, number, number, number] },
+        },
     };
 
     return (
@@ -36,10 +41,11 @@ export function SectionTitle({
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.5 }}
                 className="inline-block"
+                style={{ perspective: "600px" }}
             >
                 {prefix.split("").map((char, i) => (
-                    <motion.span key={i} variants={charVariants}>
-                        {char}
+                    <motion.span key={i} variants={charVariants} className="inline-block">
+                        {char === " " ? "\u00A0" : char}
                     </motion.span>
                 ))}
             </motion.span>
@@ -50,10 +56,11 @@ export function SectionTitle({
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.5 }}
+                style={{ perspective: "600px" }}
             >
                 {accentText.split("").map((char, i) => (
-                    <motion.span key={i} variants={charVariants}>
-                        {char}
+                    <motion.span key={i} variants={charVariants} className="inline-block">
+                        {char === " " ? "\u00A0" : char}
                     </motion.span>
                 ))}
             </motion.span>

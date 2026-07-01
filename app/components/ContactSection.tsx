@@ -2,12 +2,39 @@
 
 import { useState } from "react";
 import type { FormEvent } from "react";
+import { motion } from "framer-motion";
 import { RevealSection } from "./RevealSection";
 import { SectionTitle } from "./SectionTitle";
 import { useTranslations } from "./useTranslations";
 import { PhoneIcon, MailIcon, YoutubeIcon, TelegramIcon } from "./Icons";
 
 type SubmitState = "idle" | "sending" | "success" | "error";
+
+const fieldVariants = {
+    hidden: { opacity: 0, x: -30 },
+    visible: (i: number) => ({
+        opacity: 1,
+        x: 0,
+        transition: {
+            duration: 0.5,
+            delay: i * 0.1,
+            ease: [0.33, 1, 0.68, 1] as [number, number, number, number],
+        },
+    }),
+};
+
+const contactVariants = {
+    hidden: { opacity: 0, x: 30 },
+    visible: (i: number) => ({
+        opacity: 1,
+        x: 0,
+        transition: {
+            duration: 0.5,
+            delay: i * 0.12 + 0.3,
+            ease: [0.33, 1, 0.68, 1] as [number, number, number, number],
+        },
+    }),
+};
 
 export function ContactSection() {
     const { t } = useTranslations();
@@ -74,6 +101,12 @@ export function ContactSection() {
         },
     ];
 
+    const formFields = [
+        { name: "name", placeholder: t("contact.namePlaceholder"), type: "text", required: true },
+        { name: "lastname", placeholder: t("contact.lastnamePlaceholder"), type: "text", required: false },
+        { name: "phone", placeholder: t("contact.phonePlaceholder"), type: "tel", required: true },
+    ];
+
     return (
         <RevealSection id="contact" className="mx-auto max-w-6xl px-4 py-16 sm:px-8 sm:py-24 lg:px-12">
             <SectionTitle prefix={t("contact.title")} accentText={t("contact.titleAccent")} />
@@ -81,74 +114,115 @@ export function ContactSection() {
             <div className="mt-10 grid gap-10 sm:mt-12 sm:gap-12 lg:grid-cols-[1fr_auto_1fr] lg:items-start">
                 {/* Form */}
                 <form className="space-y-4 sm:space-y-5" onSubmit={handleSubmit}>
-                    <input
-                        className="outline-none contact-field"
-                        name="name"
-                        placeholder={t("contact.namePlaceholder")}
-                        required
-                    />
-                    <input
-                        className="outline-none contact-field"
-                        name="lastname"
-                        placeholder={t("contact.lastnamePlaceholder")}
-                    />
-                    <input
-                        className="outline-none contact-field"
-                        name="phone"
-                        placeholder={t("contact.phonePlaceholder")}
-                        required
-                        type="tel"
-                    />
-                    <textarea
-                        className="outline-none contact-field min-h-[100px] resize-none sm:min-h-28"
-                        name="message"
-                        placeholder={t("contact.messagePlaceholder")}
-                    />
-                    <button
-                        type="submit"
-                        disabled={submitState === "sending"}
-                        className="w-full rounded-full bg-[#F39A3D] px-8 py-4 font-serif text-sm font-black text-white shadow-[0_14px_35px_rgba(243,154,61,0.35)] transition hover:-translate-y-0.5 hover:bg-[#de8429] disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0 sm:py-5"
+                    {formFields.map((field, i) => (
+                        <motion.div
+                            key={field.name}
+                            custom={i}
+                            variants={fieldVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.3 }}
+                        >
+                            <input
+                                className="outline-none contact-field w-full"
+                                name={field.name}
+                                placeholder={field.placeholder}
+                                required={field.required}
+                                type={field.type as "text" | "tel"}
+                            />
+                        </motion.div>
+                    ))}
+                    <motion.div
+                        custom={3}
+                        variants={fieldVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.3 }}
                     >
-                        {submitState === "sending"
-                            ? t("contact.sending", "YUBORILMOQDA...")
-                            : t("contact.submitBtn")}{" "}
-                        <span aria-hidden>-&gt;</span>
-                    </button>
+                        <textarea
+                            className="outline-none contact-field min-h-[100px] resize-none sm:min-h-28"
+                            name="message"
+                            placeholder={t("contact.messagePlaceholder")}
+                        />
+                    </motion.div>
+                    <motion.div
+                        custom={4}
+                        variants={fieldVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.3 }}
+                    >
+                        <motion.button
+                            type="submit"
+                            disabled={submitState === "sending"}
+                            whileHover={{ scale: 1.02, y: -2 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="w-full rounded-full bg-[#F39A3D] px-8 py-4 font-serif text-sm font-black text-white shadow-[0_14px_35px_rgba(243,154,61,0.35)] transition hover:bg-[#de8429] disabled:cursor-not-allowed disabled:opacity-70 sm:py-5"
+                        >
+                            {submitState === "sending"
+                                ? t("contact.sending", "YUBORILMOQDA...")
+                                : t("contact.submitBtn")}{" "}
+                            <span aria-hidden>-&gt;</span>
+                        </motion.button>
+                    </motion.div>
                     {submitState === "success" && (
-                        <p className="rounded-2xl bg-green-50 px-5 py-4 text-sm font-semibold text-green-700">
+                        <motion.p
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="rounded-2xl bg-green-50 px-5 py-4 text-sm font-semibold text-green-700"
+                        >
                             {t("contact.success", "Arizangiz yuborildi. Tez orada bog'lanamiz.")}
-                        </p>
+                        </motion.p>
                     )}
                     {submitState === "error" && (
-                        <p className="rounded-2xl bg-red-50 px-5 py-4 text-sm font-semibold text-red-700">
+                        <motion.p
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="rounded-2xl bg-red-50 px-5 py-4 text-sm font-semibold text-red-700"
+                        >
                             {errorMessage ||
                                 t(
                                     "contact.error",
                                     "Xabar yuborilmadi. Iltimos, keyinroq qayta urinib ko'ring.",
                                 )}
-                        </p>
+                        </motion.p>
                     )}
                 </form>
 
                 {/* Divider — only on lg */}
-                <div className="hidden h-full w-px bg-[#3b342e]/60 lg:block" />
+                <motion.div
+                    initial={{ scaleY: 0 }}
+                    whileInView={{ scaleY: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="hidden h-full w-px origin-top bg-[#3b342e]/60 lg:block"
+                />
 
                 {/* Contact links */}
                 <div className="grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-1 lg:space-y-0 lg:gap-7">
-                    {contacts.map((item) => {
+                    {contacts.map((item, i) => {
                         const Icon = item.icon;
 
                         return (
-                            <a
+                            <motion.a
                                 key={item.label}
+                                custom={i}
+                                variants={contactVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true, amount: 0.3 }}
+                                whileHover={{ x: 6 }}
                                 href={item.href}
                                 target={item.href.startsWith("http") ? "_blank" : undefined}
                                 rel={item.href.startsWith("http") ? "noreferrer" : undefined}
                                 className="group flex items-center gap-4 sm:gap-6"
                             >
-                                <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-black text-white transition group-hover:bg-[#F39A3D] sm:h-12 sm:w-12">
+                                <motion.span
+                                    whileHover={{ rotate: 12, scale: 1.1 }}
+                                    className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-black text-white transition group-hover:bg-[#F39A3D] sm:h-12 sm:w-12"
+                                >
                                     <Icon />
-                                </span>
+                                </motion.span>
                                 <span>
                                     <span className="block font-serif text-lg font-black transition group-hover:text-[#F39A3D] sm:text-xl">
                                         {item.label}
@@ -157,7 +231,7 @@ export function ContactSection() {
                                         {item.value}
                                     </span>
                                 </span>
-                            </a>
+                            </motion.a>
                         );
                     })}
                 </div>

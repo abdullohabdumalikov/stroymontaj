@@ -11,10 +11,12 @@ export function RevealSection({
     id,
     className,
     children,
+    delay = 0,
 }: {
     id: string;
     className: string;
     children: React.ReactNode;
+    delay?: number;
 }) {
     return (
         <motion.section
@@ -22,8 +24,8 @@ export function RevealSection({
             variants={reveal}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.22 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.7, ease: [0.33, 1, 0.68, 1], delay }}
             className={className}
         >
             {children}

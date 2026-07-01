@@ -1,8 +1,9 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
+import { Autoplay, EffectFade } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { RevealSection } from "./RevealSection";
@@ -10,6 +11,7 @@ import { SectionTitle } from "./SectionTitle";
 import { useTranslations } from "./useTranslations";
 
 import "swiper/css";
+import "swiper/css/effect-fade";
 
 const PROJECTS = [
     {
@@ -32,6 +34,57 @@ const PROJECTS = [
     },
 ];
 
+function ProjectSlide({ project }: { project: (typeof PROJECTS)[number] }) {
+    const ref = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ["start end", "end start"],
+    });
+    const y = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
+    const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.06, 1, 1.06]);
+
+    return (
+        <div ref={ref} className="relative overflow-hidden rounded-2xl bg-[#201c18] sm:rounded-3xl">
+            <motion.div style={{ y, scale }} className="h-[260px] sm:h-[420px] lg:h-[560px]">
+                <img
+                    src={project.src}
+                    alt={project.title}
+                    className="h-full w-full object-cover"
+                />
+            </motion.div>
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="absolute left-5 top-5 sm:left-7 sm:top-7"
+            >
+                <span className="rounded-full bg-[#F39A3D] px-3 py-1 text-[10px] font-black uppercase tracking-widest text-white sm:text-xs">
+                    {project.year}
+                </span>
+            </motion.div>
+
+            <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.4 }}
+                className="absolute inset-x-0 bottom-0 p-5 text-white sm:p-8"
+            >
+                <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.22em] text-[#F39A3D] sm:mb-2 sm:text-[11px]">
+                    {project.category}
+                </p>
+                <h3 className="font-serif text-2xl font-black leading-tight sm:text-3xl lg:text-4xl">
+                    {project.title}
+                </h3>
+            </motion.div>
+        </div>
+    );
+}
+
 export function ProjectsSection() {
     const { t } = useTranslations();
     const swiperRef = useRef<SwiperType | null>(null);
@@ -39,8 +92,6 @@ export function ProjectsSection() {
 
     return (
         <RevealSection id="projects" className="bg-[#fbfaf8] py-16 sm:py-24">
-
-            {/* Sarlavha + tugmalar */}
             <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-12">
                 <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
                     <div>
@@ -49,27 +100,36 @@ export function ProjectsSection() {
                             accentText={t("projects.titleAccent")}
                             align="left"
                         />
-                        <p className="mt-3 max-w-lg text-sm leading-7 text-[#746d66] sm:mt-4 sm:text-base">
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.2 }}
+                            className="mt-3 max-w-lg text-sm leading-7 text-[#746d66] sm:mt-4 sm:text-base"
+                        >
                             {t("projects.subtitle")}
-                        </p>
+                        </motion.p>
                     </div>
 
-                    {/* Navigatsiya */}
                     <div className="flex items-center gap-3">
-                        <button
+                        <motion.button
                             onClick={() => swiperRef.current?.slidePrev()}
                             aria-label="Oldingi"
-                            className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#e4ddd6] bg-white text-[#3b342e] transition hover:border-[#F39A3D] hover:bg-[#F39A3D] hover:text-white active:scale-95"
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#e4ddd6] bg-white text-[#3b342e] transition hover:border-[#F39A3D] hover:bg-[#F39A3D] hover:text-white"
                         >
                             <ArrowLeft size={18} strokeWidth={2.5} />
-                        </button>
-                        <button
+                        </motion.button>
+                        <motion.button
                             onClick={() => swiperRef.current?.slideNext()}
                             aria-label="Keyingi"
-                            className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#e4ddd6] bg-white text-[#3b342e] transition hover:border-[#F39A3D] hover:bg-[#F39A3D] hover:text-white active:scale-95"
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#e4ddd6] bg-white text-[#3b342e] transition hover:border-[#F39A3D] hover:bg-[#F39A3D] hover:text-white"
                         >
                             <ArrowRight size={18} strokeWidth={2.5} />
-                        </button>
+                        </motion.button>
 
                         <span className="ml-1 font-serif text-sm font-black">
                             <span className="text-[#F39A3D]">{String(activeIndex + 1).padStart(2, "0")}</span>
@@ -80,58 +140,35 @@ export function ProjectsSection() {
                 </div>
             </div>
 
-            {/* Slider */}
             <div className="mt-8 overflow-hidden sm:mt-10">
                 <Swiper
-                    modules={[Autoplay]}
+                    modules={[Autoplay, EffectFade]}
                     onSwiper={(s) => { swiperRef.current = s; }}
                     onSlideChange={(s) => setActiveIndex(s.realIndex)}
                     slidesPerView={1}
                     loop={true}
                     grabCursor={true}
+                    effect="fade"
+                    fadeEffect={{ crossFade: true }}
                     autoplay={{ delay: 6000, disableOnInteraction: false, pauseOnMouseEnter: true }}
                 >
                     {PROJECTS.map((project) => (
                         <SwiperSlide key={project.title}>
-                            <div className="relative overflow-hidden rounded-2xl bg-[#201c18] sm:rounded-3xl">
-                                <img
-                                    src={project.src}
-                                    alt={project.title}
-                                    className="h-[260px] w-full object-cover sm:h-[420px] lg:h-[560px]"
-                                />
-
-                                {/* Gradient */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-
-                                {/* Yil */}
-                                <div className="absolute left-5 top-5 sm:left-7 sm:top-7">
-                                    <span className="rounded-full bg-[#F39A3D] px-3 py-1 text-[10px] font-black uppercase tracking-widest text-white sm:text-xs">
-                                        {project.year}
-                                    </span>
-                                </div>
-
-                                {/* Matn */}
-                                <div className="absolute inset-x-0 bottom-0 p-5 text-white sm:p-8">
-                                    <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.22em] text-[#F39A3D] sm:mb-2 sm:text-[11px]">
-                                        {project.category}
-                                    </p>
-                                    <h3 className="font-serif text-2xl font-black leading-tight sm:text-3xl lg:text-4xl">
-                                        {project.title}
-                                    </h3>
-                                </div>
+                            <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-12">
+                                <ProjectSlide project={project} />
                             </div>
                         </SwiperSlide>
                     ))}
                 </Swiper>
             </div>
 
-            {/* Dot navigatsiya */}
             <div className="mt-5 flex justify-center gap-2 sm:mt-7">
                 {PROJECTS.map((_, i) => (
-                    <button
+                    <motion.button
                         key={i}
                         aria-label={`${i + 1}-loyiha`}
                         onClick={() => swiperRef.current?.slideToLoop(i)}
+                        whileHover={{ scale: 1.2 }}
                         className={`h-2 rounded-full transition-all duration-300 ${
                             activeIndex === i
                                 ? "w-10 bg-[#F39A3D]"

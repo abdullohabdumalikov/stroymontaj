@@ -20,7 +20,10 @@ export function CountupNumber({ target, suffix = "+", duration = 2 }: CountupNum
         const observer = new IntersectionObserver(([entry]) => {
             if (entry.isIntersecting && !hasAnimated.current) {
                 hasAnimated.current = true;
-                animate(count, target, { duration });
+                animate(count, target, {
+                    duration,
+                    ease: [0.33, 1, 0.68, 1],
+                });
                 observer.disconnect();
             }
         }, { threshold: 0.3 });
@@ -33,7 +36,13 @@ export function CountupNumber({ target, suffix = "+", duration = 2 }: CountupNum
     }, [count, target, duration]);
 
     return (
-        <motion.span ref={elementRef}>
+        <motion.span
+            ref={elementRef}
+            initial={{ scale: 0.5, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: [0.33, 1, 0.68, 1] }}
+        >
             {display}
         </motion.span>
     );
