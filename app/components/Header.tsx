@@ -75,17 +75,15 @@ export function Header() {
             <motion.header
                 animate={{ y: isHidden ? -100 : 0 }}
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${
-                    isScrolled
+                className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${isScrolled
                         ? "border-[#E2E8F0] bg-white/95 shadow-sm backdrop-blur-xl"
                         : "border-transparent bg-white/80 backdrop-blur-md"
-                }`}
+                    }`}
             >
                 <nav className="mx-auto flex h-[68px] max-w-7xl items-center justify-between px-4 sm:h-[72px] sm:px-8 lg:px-12">
                     <motion.a
                         href="#home"
                         className="flex items-center gap-2.5 sm:gap-3"
-                        whileHover={{ scale: 1.02 }}
                     >
                         <LogoMark />
                         <span className="text-base font-bold tracking-tight text-[#0F172A] sm:text-lg">
@@ -155,11 +153,10 @@ export function Header() {
                                                     setLanguage(lang.code as "uz" | "ўз" | "ru");
                                                     setIsLangOpen(false);
                                                 }}
-                                                className={`flex w-full items-center gap-3 px-4 py-3 text-sm font-semibold transition-colors ${
-                                                    language === lang.code
+                                                className={`flex w-full items-center gap-3 px-4 py-3 text-sm font-semibold transition-colors ${language === lang.code
                                                         ? "bg-[#EA580C]/10 text-[#EA580C]"
                                                         : "text-[#334155] hover:bg-[#F8FAFC] hover:text-[#EA580C]"
-                                                }`}
+                                                    }`}
                                             >
                                                 <img
                                                     src={lang.flag}

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { CountupNumber } from "./CountupNumber";
 import { RevealSection } from "./RevealSection";
 import { SectionTitle } from "./SectionTitle";
@@ -54,8 +54,14 @@ const statIcons: Record<string, React.ReactNode> = {
 export function AboutSection() {
     const { t } = useTranslations();
     const sectionRef = useRef<HTMLElement>(null);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     const { scrollYProgress } = useScroll({
-        target: sectionRef,
+        target: mounted ? sectionRef : undefined,
         offset: ["start end", "end start"],
     });
 

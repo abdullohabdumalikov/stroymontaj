@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export function ImageReveal({
     src,
@@ -13,8 +13,14 @@ export function ImageReveal({
     className?: string;
 }) {
     const ref = useRef<HTMLDivElement>(null);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     const { scrollYProgress } = useScroll({
-        target: ref,
+        target: mounted ? ref : undefined,
         offset: ["start end", "end start"],
     });
 
@@ -28,6 +34,7 @@ export function ImageReveal({
                     src={src}
                     alt={alt}
                     className="h-full w-full object-cover"
+                    loading="lazy"
                 />
             </motion.div>
         </div>

@@ -59,7 +59,7 @@ export function HeroSection() {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.7, delay: 2.1, ease: [0.16, 1, 0.3, 1] }}
-                        className="block bg-gradient-to-r from-[#EA580C] to-[#F97316] bg-clip-text text-transparent"
+                        className="block text-[#F39A3D] bg-clip-text"
                         style={{ fontSize: "clamp(2.4rem,9vw,5rem)" }}
                     >
                         {t("hero.accent")}
@@ -90,30 +90,7 @@ export function HeroSection() {
                 </motion.div>
 
                 {/* Trust badges */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 2.8 }}
-                    className="mt-10 flex items-center gap-6"
-                >
-                    <div className="flex items-center gap-2">
-                        <div className="flex -space-x-2">
-                            {[1, 2, 3, 4].map((i) => (
-                                <div key={i} className="h-8 w-8 rounded-full border-2 border-white bg-gradient-to-br from-[#64748B] to-[#94A3B8] shadow-sm" />
-                            ))}
-                        </div>
-                        <span className="text-xs font-semibold text-[#64748B]">50+ jamoa</span>
-                    </div>
-                    <div className="h-8 w-px bg-[#E2E8F0]" />
-                    <div className="flex items-center gap-1">
-                        {[1, 2, 3, 4, 5].map((i) => (
-                            <svg key={i} className="h-4 w-4 text-[#EA580C]" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                        ))}
-                        <span className="ml-1 text-xs font-semibold text-[#64748B]">4.9/5</span>
-                    </div>
-                </motion.div>
+
             </motion.div>
 
             <motion.div
@@ -137,35 +114,10 @@ export function HeroSection() {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/20 via-transparent to-transparent" />
                 </motion.div>
 
-                {/* Floating stats card */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ duration: 0.7, delay: 2.8, type: "spring", stiffness: 120 }}
-                    className="absolute -bottom-6 -left-4 glass rounded-2xl px-5 py-4 shadow-xl sm:-bottom-8 sm:-left-6"
-                >
-                    <div className="flex items-center gap-4">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#EA580C] to-[#F97316] text-white shadow-lg shadow-[#EA580C]/25">
-                            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                            </svg>
-                        </div>
-                        <div>
-                            <p className="text-sm font-bold text-[#0F172A]">20+ Yil tajriba</p>
-                            <p className="text-xs text-[#64748B]">Ishonchli hamkor</p>
-                        </div>
-                    </div>
-                </motion.div>
+
 
                 {/* Year badge */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 3.2, type: "spring" }}
-                    className="absolute -right-3 top-6 rounded-full bg-[#0F172A] px-4 py-2 text-xs font-bold text-white shadow-lg sm:-right-4 sm:top-8"
-                >
-                    Est. 2004
-                </motion.div>
+
             </motion.div>
         </section>
     );

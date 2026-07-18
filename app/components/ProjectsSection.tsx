@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
@@ -36,8 +36,14 @@ const PROJECTS = [
 
 function ProjectSlide({ project }: { project: (typeof PROJECTS)[number] }) {
     const ref = useRef<HTMLDivElement>(null);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     const { scrollYProgress } = useScroll({
-        target: ref,
+        target: mounted ? ref : undefined,
         offset: ["start end", "end start"],
     });
     const y = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);

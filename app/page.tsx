@@ -6,12 +6,10 @@ import { ServicesSection } from "./components/ServicesSection";
 import { ReviewsSection } from "./components/ReviewsSection";
 import { ContactSection } from "./components/ContactSection";
 import { Footer } from "./components/Footer";
-import { PageLoader } from "./components/PageLoader";
 
 export default function Home() {
     return (
         <main className="min-h-screen bg-white text-[#241f1a]">
-            <PageLoader />
             <Header />
             <HeroSection />
             <AboutSection />
